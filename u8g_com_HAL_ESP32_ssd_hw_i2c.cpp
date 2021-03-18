@@ -55,7 +55,7 @@ uint8_t esp32_u8g_i2c_start(uint8_t sla);
 uint8_t esp32_u8g_i2c_send_byte(uint8_t byte);
 void esp32_u8g_i2c_stop();
 }
-#define SSD1306_ADDR7    (0x78)
+#define SSD1306_ADDR7    (0x3c)
 #define SSD1306_SLA_CMD  (0x00)
 #define SSD1306_SLA_DATA (0x40)
 
