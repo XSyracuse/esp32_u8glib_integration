@@ -19,31 +19,31 @@ i2c_config_t conf = {
 
 i2c_port_t i2c_master_port = I2C_NUM_0;
 i2c_cmd_handle_t i2c_cmd;
+
 void esp32_u8g_i2c_init()
 {
-    i2c_param_config(i2c_master_port,&conf);
-
-    i2c_driver_install(i2c_master_port,conf.mode,0,0,0);
-
-    i2c_cmd = i2c_cmd_link_create();
-    
+  i2c_param_config(i2c_master_port,&conf);
+  i2c_driver_install(i2c_master_port,conf.mode,0,0,0);
 }
 
 //sla is a 7 bit i2c device address
 uint8_t esp32_u8g_i2c_start(uint8_t sla)
 {
-   i2c_master_start(i2c_cmd);
-   i2c_master_write_byte(i2c_cmd,(sla<<1),ACK_CHECK);
-   return 1;
+  i2c_cmd = i2c_cmd_link_create();
+  i2c_master_start(i2c_cmd);
+  i2c_master_write_byte(i2c_cmd,(sla<<1),ACK_CHECK);
+  return 1;
 }
+
 uint8_t esp32_u8g_i2c_send_byte(uint8_t byte)
 {
   i2c_master_write_byte(i2c_cmd,byte,ACK_CHECK);
   return 1;
 }
+
 void esp32_u8g_i2c_stop()
 {
-   i2c_master_stop(i2c_cmd);
-   i2c_master_cmd_begin(i2c_master_port,i2c_cmd,0);
-   i2c_cmd_link_delete(i2c_cmd);
+  i2c_master_stop(i2c_cmd);
+  i2c_master_cmd_begin(i2c_master_port,i2c_cmd,0);
+  i2c_cmd_link_delete(i2c_cmd);
 }
